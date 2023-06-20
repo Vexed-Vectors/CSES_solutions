@@ -1,35 +1,37 @@
-#include <bits/stdc++.h>
-typedef long long ll;
+#include<bits/stdc++.h>
 using namespace std;
 
-int main(){
-    int n;
-    cin>>n;
-    ll k[n];
-    unordered_set <ll> s;
-    for(int i=0;i<n;i++){
-        cin>>k[i];
+#define int long long
+#define endl '\n'
 
-
-
+int xpow(int x, unsigned int y){
+    int res=1;
+    while(y>0){
+        if (y&1) res= (res*x); y=y>>1; x=(x*x);
     }
-    ll start=0,mx=0;
-    for(int i=0;i<n;i++){
-        s.insert(k[i]);
+    return res;
+}
 
-        if (i-start+1!= s.size()){
+signed main(){
+    ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+    #ifdef LOCAL
+    freopen("input.txt", "r" , stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
 
-            mx= max(mx,(ll)s.size());s.clear();start=i;s.insert(k[i]);
+    int t; cin>>t;
+    while(t--) {
+        int n; cin>>n;
+        int c = 1;
+        for (int p = 9;; n -= p, c++, p = 9*xpow(10, c-1)*c) {
+            if (n - p <= 0) break;
         }
-        mx=max(mx,(ll)s.size());
+        n--;
+        int x = n/c;
+        int y = n%c;
+        int ans = xpow(10, c-1) + x;
 
-
+        string s = to_string(ans);
+        cout<<s[y]<<endl;
     }
-
-    cout<<mx;
-
-
-
-
-    }
-
+}
